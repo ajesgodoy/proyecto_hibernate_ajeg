@@ -28,6 +28,7 @@ public class TiendaBar {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_tiendabar")
 	private Integer id;
 
 	/**
@@ -47,6 +48,7 @@ public class TiendaBar {
 	 * Lista de productos que se venden en la tienda.
 	 */
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tiendabar_id", referencedColumnName = "id_tiendabar")
 	private List<Producto> productos;
 
 	/**

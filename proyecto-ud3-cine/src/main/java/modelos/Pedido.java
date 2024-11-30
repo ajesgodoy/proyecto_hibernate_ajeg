@@ -11,12 +11,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
- * Clase Pedido
+ * Representa un pedido
  */
 @Entity
 @Table(name = "Pedido")
@@ -27,6 +28,7 @@ public class Pedido {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_pedido")
 	private int id;
 
 	/**
@@ -44,6 +46,7 @@ public class Pedido {
 	 * Relación unidireccional 1:N con Producto
 	 */
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pedido_id", referencedColumnName = "id_pedido")
 	private List<Producto> productos;
 
 	/**

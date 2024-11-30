@@ -17,7 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
- * 
+ * Representa un espectador
  */
 @Entity
 @Table(name = "espectador")
