@@ -16,27 +16,27 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
- * 
+ * Clase Pedido
  */
 @Entity
 @Table(name = "Pedido")
 public class Pedido {
 
 	/**
-	 * 
+	 * id del pedido
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	/**
-	 * 
+	 * Importe del pedido
 	 */
 	@Column(nullable = false)
 	private double importe;
 
 	/**
-	 * 
+	 * Fecha del pedido
 	 */
 	private LocalDateTime fecha;
 
@@ -47,7 +47,7 @@ public class Pedido {
 	private List<Producto> productos;
 
 	/**
-	 * 
+	 * Espectador
 	 */
 	@ManyToOne
 	private Espectador espectador;

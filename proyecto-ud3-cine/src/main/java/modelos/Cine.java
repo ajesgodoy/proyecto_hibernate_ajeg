@@ -23,20 +23,20 @@ import jakarta.persistence.Table;
 public class Cine {
 
 	/**
-	 * 
+	 * Id del cine
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	/**
-	 * 
+	 * Nombre del cine
 	 */
 	@Column(nullable = false, length = 100)
 	private String nombre;
 
 	/**
-	 * 
+	 * Ubicación del cine
 	 */
 	private String ubicacion;
 
@@ -47,7 +47,7 @@ public class Cine {
 	private Set<Sala> salas;
 
 	/**
-	 * 
+	 * TiendaBar del cine
 	 */
 	@OneToOne(mappedBy = "cine", cascade = CascadeType.ALL, orphanRemoval = true)
 	private TiendaBar tiendaBar;

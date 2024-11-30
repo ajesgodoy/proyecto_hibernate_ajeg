@@ -24,37 +24,37 @@ import jakarta.persistence.Table;
 public class Espectador {
 
 	/**
-	 * 
+	 * DNI
 	 */
 	@Id
 	private String dni;
 
 	/**
-	 * 
+	 * Nombre
 	 */
 	@Column(length = 100)
 	private String nombre;
 
 	/**
-	 * 
+	 * Edad
 	 */
 	private int edad;
 
 	/**
-	 * 
+	 * Pedidos
 	 */
 	@OneToMany(mappedBy = "espectador", cascade = CascadeType.ALL)
 	private List<Pedido> pedidos;
 
 	/**
-	 * 
+	 * Película
 	 */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pelicula_id") // Clave foránea en la tabla Pelicula
 	private Pelicula pelicula;
 
 	/**
-	 * 
+	 * Constructor
 	 */
 	public Espectador() {
 		super();
