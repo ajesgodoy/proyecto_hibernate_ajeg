@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<property name="hibernate.connection.driver_class">
+			com.mysql.cj.jdbc.Driver</property>
+
+		<property name="hibernate.connection.url">
+			jdbc:mysql://localhost:3306/cinebasedatos?createDatabaseIfNotExist=true</property>
+
+		<property name="hibernate.connection.username">godoy</property>
+
+		<property name="hibernate.connection.password">4321</property>
+
+		<property name="hibernate.connection.pool_size">10</property>
+
+		<!-- Dialecto de Hibernate -->
+
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+
+		<!-- Configuración del contexto de sesión -->
+
+		<property name="hibernate.show_sql">true</property> <!-- Muestra la traducción sql -->
+
+		<property name="hibernate.format_sql">true</property> <!-- Formatea ese sql -->
+
+		<property name="hibernate.use_sql_comments">true</property>
+
+		<property name="hibernate.hbm2ddl.auto">update</property> <!-- crea el esquema de la base de datos -->
+
+		<mapping class="modelos.Cine" />
+		<mapping class="modelos.Espectador" />
+		<mapping class="modelos.Pedido" />
+		<mapping class="modelos.Pelicula" />
+		<mapping class="modelos.Producto" />
+		<mapping class="modelos.Sala" />
+		<mapping class="modelos.TiendaBar" />
+
+	</session-factory>
+
+</hibernate-configuration>
+
