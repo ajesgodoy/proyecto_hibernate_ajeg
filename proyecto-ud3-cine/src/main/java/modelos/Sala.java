@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -24,7 +25,7 @@ import jakarta.persistence.Table;
  * conjunto de películas proyectadas.
  */
 @Entity
-@Table(name = "Sala")
+@Table(name = "sala")
 public class Sala {
 
 	/**
@@ -49,7 +50,7 @@ public class Sala {
 	/**
 	 * Conjunto de películas proyectadas en esta sala. Relación ManyToMany.
 	 */
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "sala_pelicula", // Nombre de la tabla intermedia
 			joinColumns = @JoinColumn(name = "sala_id"), // Clave foránea de 'Sala'
 			inverseJoinColumns = @JoinColumn(name = "pelicula_id") // Clave foránea de 'Pelicula'
@@ -60,8 +61,15 @@ public class Sala {
 	 * Cine que tiene la sala
 	 */
 	@ManyToOne
-	@JoinColumn(name = "cine_id", nullable = false)
+	@JoinColumn(name = "cine_id")
 	private Cine cine;
+
+	/**
+	 * Proyector de la sala de cine
+	 */
+	@OneToOne
+	@JoinColumn(name = "proyector_id", nullable = true)
+	private Proyector proyector;
 
 	/**
 	 * Constructor sin parámetros, requerido por JPA.
@@ -158,6 +166,20 @@ public class Sala {
 	}
 
 	/**
+	 * @return the proyector
+	 */
+	public Proyector getProyector() {
+		return proyector;
+	}
+
+	/**
+	 * @param proyector the proyector to set
+	 */
+	public void setProyector(Proyector proyector) {
+		this.proyector = proyector;
+	}
+
+	/**
 	 * Añade una película a la sala y sincroniza la relación bidireccional.
 	 *
 	 * @param pelicula la película a añadir.
@@ -200,7 +222,8 @@ public class Sala {
 
 	@Override
 	public String toString() {
-		String cadena = "Sala [id=" + id + ", nombre=" + nombre + ", capacidad=" + capacidad;
+		String cadena = "Sala [id=" + id + ", nombre=" + nombre + ", capacidad=" + capacidad + ", proyector="
+				+ proyector;
 
 		// Evitar recursión infinita mostrando solo la cantidad de películas asociadas
 		if (!peliculas.isEmpty()) {
@@ -209,5 +232,4 @@ public class Sala {
 
 		return cadena + "]";
 	}
-
 }

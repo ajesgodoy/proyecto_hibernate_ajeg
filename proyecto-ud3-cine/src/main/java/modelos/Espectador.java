@@ -43,7 +43,7 @@ public class Espectador {
 	/**
 	 * Pedidos
 	 */
-	@OneToMany(mappedBy = "espectador", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "espectador", cascade = CascadeType.MERGE)
 	private List<Pedido> pedidos;
 
 	/**
@@ -54,7 +54,7 @@ public class Espectador {
 	private Pelicula pelicula;
 
 	/**
-	 * Constructor
+	 * Constructor sin parámetros, necesario para JPA.
 	 */
 	public Espectador() {
 		super();
@@ -62,6 +62,8 @@ public class Espectador {
 	}
 
 	/**
+	 * Constructor con parámetros.
+	 * 
 	 * @param dni
 	 * @param nombre
 	 * @param edad
@@ -76,6 +78,8 @@ public class Espectador {
 	}
 
 	/**
+	 * Constructor con parámetros.
+	 * 
 	 * @param dni
 	 * @param nombre
 	 * @param edad

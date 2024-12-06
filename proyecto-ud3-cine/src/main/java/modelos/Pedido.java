@@ -12,15 +12,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
  * Representa un pedido
  */
 @Entity
-@Table(name = "Pedido")
+@Table(name = "pedido")
 public class Pedido {
 
 	/**
@@ -43,10 +44,13 @@ public class Pedido {
 	private LocalDateTime fecha;
 
 	/**
-	 * Relación unidireccional 1:N con Producto
+	 * Conjunto de productos de un pedido. Relación ManyToMany.
 	 */
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pedido_id", referencedColumnName = "id_pedido")
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "pedido_producto", // Nombre de la tabla intermedia
+			joinColumns = @JoinColumn(name = "pedido_id"), // Clave foránea de 'Pedido'
+			inverseJoinColumns = @JoinColumn(name = "producto_id") // Clave foránea de 'Producto'
+	)
 	private List<Producto> productos;
 
 	/**
@@ -56,7 +60,7 @@ public class Pedido {
 	private Espectador espectador;
 
 	/**
-	 * 
+	 * Constructor sin parámetros, necesario para JPA.
 	 */
 	public Pedido() {
 		super();
@@ -65,16 +69,16 @@ public class Pedido {
 	}
 
 	/**
+	 * Constructor con parámetros.
+	 * 
 	 * @param importe
 	 * @param fecha
-	 * @param espectador
 	 */
-	public Pedido(double importe, LocalDateTime fecha, Espectador espectador) {
+	public Pedido(double importe, LocalDateTime fecha) {
 		super();
 		this.importe = importe;
 		this.fecha = fecha;
 		this.productos = new ArrayList<>();
-		this.espectador = espectador;
 	}
 
 	/**

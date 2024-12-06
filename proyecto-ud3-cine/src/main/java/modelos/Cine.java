@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -19,7 +18,7 @@ import jakarta.persistence.Table;
  * la base de datos.
  */
 @Entity
-@Table(name = "Cine") // Especifica que esta clase se mapeará a la tabla "cine".
+@Table(name = "cine") // Especifica que esta clase se mapeará a la tabla "cine".
 public class Cine {
 
 	/**
@@ -41,16 +40,10 @@ public class Cine {
 	private String ubicacion;
 
 	/**
-	 * Relación 1:N unidireccional con Sala
+	 * Salas del cine Relación 1:N unidireccional con Sala
 	 */
 	@OneToMany(mappedBy = "cine", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Sala> salas;
-
-	/**
-	 * TiendaBar del cine
-	 */
-	@OneToOne(mappedBy = "cine", cascade = CascadeType.ALL, orphanRemoval = true)
-	private TiendaBar tiendaBar;
 
 	/**
 	 * Constructor sin parámetros, necesario para JPA.
@@ -60,6 +53,8 @@ public class Cine {
 	}
 
 	/**
+	 * Constructor con parámetros.
+	 * 
 	 * @param nombre
 	 * @param ubicacion
 	 */
@@ -127,28 +122,24 @@ public class Cine {
 	}
 
 	/**
-	 * @return the tiendaBar
-	 */
-	public TiendaBar getTiendaBar() {
-		return tiendaBar;
-	}
-
-	/**
-	 * @param tiendaBar the tiendaBar to set
-	 */
-	public void setTiendaBar(TiendaBar tiendaBar) {
-		this.tiendaBar = tiendaBar;
-		if (tiendaBar != null) {
-			tiendaBar.setCine(this);
-		}
-	}
-
-	/**
+	 * Añade una Sala del Cine y añade la referencia al Cine en la Sala.
+	 * 
 	 * @param sala
 	 */
 	public void addSala(Sala sala) {
 		this.salas.add(sala);
 		sala.setCine(this);
+	}
+
+	/**
+	 * Elimina una Sala del Cine y elimina la referencia al Cine en la Sala.
+	 * 
+	 * @param sala La Sala que se desea eliminar.
+	 */
+	public void removeSala(Sala sala) {
+		if (this.salas.remove(sala)) { // Si la Sala estaba en la lista y se eliminó
+			sala.setCine(null); // Eliminamos la referencia al Cine en la Sala
+		}
 	}
 
 	@Override
@@ -170,8 +161,7 @@ public class Cine {
 
 	@Override
 	public String toString() {
-		return "Cine [id=" + id + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", salas=" + salas
-				+ ", tiendaBar=" + tiendaBar + "]";
+		return "Cine [id=" + id + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", salas=" + salas + "]";
 	}
 
 }

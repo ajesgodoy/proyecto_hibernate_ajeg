@@ -17,14 +17,14 @@ import jakarta.persistence.Table;
  * género, duración y puede estar asignada a múltiples salas.
  */
 @Entity
-@Table(name = "Pelicula")
+@Table(name = "pelicula")
 public class Pelicula {
 
 	/**
 	 * Identificador único de la película (clave primaria).
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	/**

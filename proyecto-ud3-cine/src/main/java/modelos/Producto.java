@@ -1,5 +1,7 @@
 package modelos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,14 +9,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 /**
- * Representa un producto de la tienda bar del cine.
+ * Representa un producto de la tienda bar.
  */
 @Entity
-@Table(name = "Producto")
-
+@Table(name = "producto")
 public class Producto {
 
 	/**
@@ -43,11 +45,18 @@ public class Producto {
 	private double precio;
 
 	/**
+	 * Conjunto de pedidos que tienen un producto. Relación ManyToMany.
+	 */
+	@ManyToMany(mappedBy = "productos")
+	private List<Pedido> pedidos;
+
+	/**
 	 * Constructor sin parámetros, requerido por JPA.
 	 * 
 	 */
 	public Producto() {
 		super();
+		this.pedidos = new ArrayList<>();
 	}
 
 	/**
@@ -62,6 +71,7 @@ public class Producto {
 		this.nombre = nombre;
 		this.categoria = categoria;
 		this.precio = precio;
+		this.pedidos = new ArrayList<>();
 	}
 
 	/**
@@ -118,6 +128,20 @@ public class Producto {
 	 */
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+
+	/**
+	 * @return the pedidos
+	 */
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	/**
+	 * @param pedidos the pedidos to set
+	 */
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override

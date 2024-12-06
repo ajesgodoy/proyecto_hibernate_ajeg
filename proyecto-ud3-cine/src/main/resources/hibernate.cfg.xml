@@ -3,41 +3,54 @@
 
 <hibernate-configuration>
 
+	<!-- Configuración de la sesión de Hibernate -->
 	<session-factory>
 
+		<!-- Configuración del controlador de la base de datos -->
 		<property name="hibernate.connection.driver_class">
 			com.mysql.cj.jdbc.Driver</property>
 
+		<!-- Configuración de la URL de conexión de la base de datos -->
 		<property name="hibernate.connection.url">
 			jdbc:mysql://localhost:3306/cinebasedatos?createDatabaseIfNotExist=true</property>
 
+		<!-- Configuración del usuario y contraseña de la base de datos -->
 		<property name="hibernate.connection.username">godoy</property>
-
 		<property name="hibernate.connection.password">4321</property>
 
+		<!-- Configuración de las conexiones simultaneas a la base de datos -->
 		<property name="hibernate.connection.pool_size">10</property>
 
-		<!-- Dialecto de Hibernate -->
+		<!-- Configuración del dialecto SQL de la base de datos -->
 
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
 
-		<!-- Configuración del contexto de sesión -->
+		<!-- Configuración para la visualización de las consultas SQL en la consola -->
 
-		<property name="hibernate.show_sql">true</property> <!-- Muestra la traducción sql -->
+		<!-- Activa la visualización de las consultas SQL generadas por Hibernate 
+			en la consola -->
+		<property name="hibernate.show_sql">true</property>
 
-		<property name="hibernate.format_sql">true</property> <!-- Formatea ese sql -->
+		<!-- Formatea las consultas SQL para que sean más legibles al mostrarlas 
+			en la consola -->
+		<property name="hibernate.format_sql">true</property>
 
+		<!-- Inserta comentarios descriptivos en las consultas SQL generadas por 
+			Hibernate para facilitar su comprensión -->
 		<property name="hibernate.use_sql_comments">true</property>
 
+		<!-- Configuración del modo de validación de esquema -->
 		<property name="hibernate.hbm2ddl.auto">update</property> <!-- crea el esquema de la base de datos -->
 
+		<!-- Mapeo de las clases de entidad -->
 		<mapping class="modelos.Cine" />
 		<mapping class="modelos.Espectador" />
 		<mapping class="modelos.Pedido" />
 		<mapping class="modelos.Pelicula" />
 		<mapping class="modelos.Producto" />
 		<mapping class="modelos.Sala" />
+		<mapping class="modelos.Proyector" />
 		<mapping class="modelos.TiendaBar" />
 
 	</session-factory>

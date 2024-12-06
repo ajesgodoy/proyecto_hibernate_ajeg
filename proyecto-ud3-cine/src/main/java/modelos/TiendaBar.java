@@ -12,15 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
- * Representa la tienda del bar del cine. Está asociada a un cine y contiene una
- * lista de productos.
+ * Representa la tienda bar. Contiene una lista de productos.
  */
 @Entity
-@Table(name = "TiendaBar")
+@Table(name = "tiendaBar")
 public class TiendaBar {
 
 	/**
@@ -38,17 +36,10 @@ public class TiendaBar {
 	private String nombre;
 
 	/**
-	 * Cine asociado a la tienda. Relación OneToOne.
-	 */
-	@OneToOne
-	@JoinColumn(name = "cine_id", nullable = false, unique = true)
-	private Cine cine;
-
-	/**
 	 * Lista de productos que se venden en la tienda.
 	 */
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tiendabar_id", referencedColumnName = "id_tiendabar")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "tiendabar_id")
 	private List<Producto> productos;
 
 	/**
@@ -60,25 +51,25 @@ public class TiendaBar {
 	}
 
 	/**
+	 * Constructor con parámetros.
+	 * 
 	 * @param nombre
-	 * @param cine
 	 */
-	public TiendaBar(String nombre, Cine cine) {
+	public TiendaBar(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.cine = cine;
 		this.productos = new ArrayList<>();
 	}
 
 	/**
+	 * Constructor con parámetros.
+	 * 
 	 * @param nombre
-	 * @param cine
 	 * @param productos
 	 */
-	public TiendaBar(String nombre, Cine cine, List<Producto> productos) {
+	public TiendaBar(String nombre, List<Producto> productos) {
 		super();
 		this.nombre = nombre;
-		this.cine = cine;
 		this.productos = productos;
 	}
 
@@ -108,20 +99,6 @@ public class TiendaBar {
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	/**
-	 * @return the cine
-	 */
-	public Cine getCine() {
-		return cine;
-	}
-
-	/**
-	 * @param cine the cine to set
-	 */
-	public void setCine(Cine cine) {
-		this.cine = cine;
 	}
 
 	/**
@@ -177,7 +154,7 @@ public class TiendaBar {
 
 	@Override
 	public String toString() {
-		return "TiendaBar [id=" + id + ", nombre=" + nombre + ", cine=" + cine + ", productos=" + productos + "]";
+		return "TiendaBar [id=" + id + ", nombre=" + nombre + ", productos=" + productos + "]";
 	}
 
 }
